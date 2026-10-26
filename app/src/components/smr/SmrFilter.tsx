@@ -58,7 +58,9 @@ export default function SmrFilter({
         </div>
 
         <div className="filter-action find">
-          <input className="action-input action-btn" type="submit" value="Найти" />
+          <button type="submit" className="btn btn-light action-btn">
+            Найти
+          </button>
         </div>
       </form>
     </div>
