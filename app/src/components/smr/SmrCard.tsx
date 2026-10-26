@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import type { SubmitEvent } from 'react';
 import type { Smr } from '../../types/smr'
-import { DEFAULT_IMAGE } from '../../mocks/smrs';
+import { DEFAULT_IMAGE } from '../../modules/mock';
 
 type SmrCardProps = {
   smr: Smr;

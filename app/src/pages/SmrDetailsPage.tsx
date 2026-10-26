@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
-import { getMockSmr, MOCK_LIKES, DEFAULT_VIDEO } from '../mocks/smrs';
+import { getMockSmr, MOCK_LIKES, DEFAULT_VIDEO } from '../modules/mock';
 
 export default function SmrDetailsPage() {
   const { id } = useParams<{ id: string }>();

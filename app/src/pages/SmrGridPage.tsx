@@ -3,7 +3,7 @@ import Layout from '../components/layout/Layout'
 import SmrFilter from '../components/smr/SmrFilter';
 import SmrCard from '../components/smr/SmrCard';
 import type { Smr } from '../types/smr'
-import { MOCK_SMRS, MOCK_LIKES } from '../mocks/smrs';
+import { MOCK_SMRS, MOCK_LIKES } from '../modules/mock';
 
 export default function SmrGridPage() {
   const [smrs] = useState<Smr[]>(MOCK_SMRS);
