@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import SmrDetailsControls from '../components/smr/SmrDetailsControl';
 import { getMockSmr, MOCK_LIKES, DEFAULT_VIDEO } from '../modules/mock';
