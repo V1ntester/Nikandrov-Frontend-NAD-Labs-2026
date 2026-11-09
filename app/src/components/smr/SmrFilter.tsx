@@ -1,27 +1,14 @@
-import { useState, type SubmitEvent } from 'react';
+import type { SubmitEvent } from 'react';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { applyRange, selectRange } from '../../features/smr/smrFiltersSlice';
 
-type FilterValues = {
-  thermal_power_min: number;
-  thermal_power_max: number;
-};
-
-type SmrFilterProps = {
-  initialMin?: number;
-  initialMax?: number;
-  onSubmit?: (values: FilterValues) => void;
-};
-
-export default function SmrFilter({
-  initialMin = 100,
-  initialMax = 500,
-  onSubmit,
-}: SmrFilterProps) {
-  const [min, setMin] = useState(initialMin);
-  const [max, setMax] = useState(initialMax);
+export default function SmrFilter() {
+  const dispatch = useAppDispatch();
+  const { filter_min: min, filter_max: max } = useAppSelector((state) => state.smrFilters.selected);
 
   const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit?.({ thermal_power_min: min, thermal_power_max: max });
+    dispatch(applyRange());
   };
 
   return (
@@ -40,7 +27,7 @@ export default function SmrFilter({
               max={240}
               step={10}
               value={min}
-              onChange={(e) => setMin(Number(e.target.value))}
+              onChange={(e) => dispatch(selectRange({ filter_min: Number(e.target.value), filter_max: max }))}
             />
           </div>
           <div className="range-row">
@@ -52,7 +39,7 @@ export default function SmrFilter({
               max={500}
               step={10}
               value={max}
-              onChange={(e) => setMax(Number(e.target.value))}
+              onChange={(e) => dispatch(selectRange({ filter_min: min, filter_max: Number(e.target.value) }))}
             />
           </div>
         </div>

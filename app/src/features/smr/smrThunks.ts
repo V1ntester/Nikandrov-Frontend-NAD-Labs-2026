@@ -4,7 +4,7 @@ import type { BodyCreateSmrApiSmrsPost, SmrListItem, SmrPublish } from '../../ap
 
 const smrApi = new Api({ baseURL: '' }).api;
 
-type SmrDraft = Omit<SmrListItem, "is_owner" | "is_liked" | "likes_count">;
+export type SmrDraft = Omit<SmrListItem, "is_owner" | "is_liked" | "likes_count">;
 
 type SmrFilters = {
   filter_min?: number;

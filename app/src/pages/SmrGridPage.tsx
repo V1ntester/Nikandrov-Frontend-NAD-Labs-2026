@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { useAppSelector } from '../store';
 import Layout from '../components/layout/Layout'
 import SmrFilter from '../components/smr/SmrFilter';
 import SmrCard from '../components/smr/SmrCard';
-import type { Smr } from '../types/smr'
 import { MOCK_SMRS, MOCK_LIKES } from '../modules/mock';
 
 export default function SmrGridPage() {
-  const [smrs] = useState<Smr[]>(MOCK_SMRS);
-  const [likesMap] = useState<Record<number, number>>(MOCK_LIKES);
+  const { filter_min, filter_max } = useAppSelector((state) => state.smrFilters.applied);
+  const smrs = MOCK_SMRS.filter(({ thermal_power }) =>
+    thermal_power !== undefined && thermal_power >= filter_min && thermal_power <= filter_max,
+  );
 
     return (
         <Layout>
@@ -22,7 +23,7 @@ export default function SmrGridPage() {
                     <SmrCard
                         key={smr.id}
                         smr={smr}
-                        likes={likesMap[smr.id] ?? 0}
+                        likes={MOCK_LIKES[smr.id] ?? 0}
                     />
                     ))}
                     </div>
