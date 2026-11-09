@@ -4,6 +4,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import SmrDetailsPage from './pages/SmrDetailsPage.tsx';
+import LoginPage from './pages/LoginPage';
 import SmrGridPage from './pages/SmrGridPage.tsx';
 import './styles/style.css'
 
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: '/smr/:id',
     element: <SmrDetailsPage/>
+  },
+  {
+    path: '/login',
+    element: <LoginPage />
   }
 ])
 
