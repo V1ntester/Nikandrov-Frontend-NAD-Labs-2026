@@ -1,3 +1,4 @@
+import { proxyMediaUrl } from '../api/mediaUrl';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
@@ -45,7 +46,7 @@ export default function SmrDetailsPage() {
           loop
           playsInline
         >
-          <source src={smr.video_url || DEFAULT_VIDEO} type="video/mp4" />
+          <source src={proxyMediaUrl(smr.video_url) || DEFAULT_VIDEO} type="video/mp4" />
         </video>
 
         <div className="container">

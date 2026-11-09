@@ -1,3 +1,4 @@
+import { proxyMediaUrl } from '../../api/mediaUrl';
 import { Link } from 'react-router-dom';
 import type { SubmitEvent } from 'react';
 import type { Smr } from '../../types/smr'
@@ -26,7 +27,7 @@ export default function SmrCard({
       <Link to={`/smr/${smr.id}`}>
         <div className="product-card">
           <div className="image-container">
-            <img src={smr.image_url || defaultImage} alt={smr.name || 'Реактор'} />
+            <img src={proxyMediaUrl(smr.image_url) || defaultImage} alt={smr.name || 'Реактор'} />
           </div>
           <div className="description">
             <h4 className="manufacturer">{smr.manufacturer}</h4>

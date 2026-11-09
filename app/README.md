@@ -73,3 +73,9 @@ export default defineConfig([
 ])
 
 ```
+
+## Генерация Axios-клиента
+
+Из каталога `app` установите зависимости командой `npm ci`.
+Запустите FastAPI на порту 8002 и выполните `npm run generate:api`.
+Команда создаёт `src/api/generated/api.ts` из схемы `/openapi.json`.
