@@ -1,3 +1,4 @@
+import { classifySmrReadError, type SmrReadError } from '../../api/smrReadError';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Api } from '../../api/generated/api';
 import type { BodyCreateSmrApiSmrsPost, SmrListItem, SmrPublish } from '../../api/generated/api';
@@ -11,19 +12,29 @@ type SmrFilters = {
   filter_max?: number;
 };
 
-export const fetchSmrs = createAsyncThunk(
+export const fetchSmrs = createAsyncThunk<SmrListItem[], SmrFilters, { rejectValue: SmrReadError }>(
   'smrs/fetchList',
-  async (filters: SmrFilters, { signal }) => {
-    const { data } = await smrApi.getSmrsApiSmrsGet(filters, { signal });
-    return data.smrs;
+  async (filters, { signal, rejectWithValue }) => {
+    try {
+      const { data } = await smrApi.getSmrsApiSmrsGet(filters, { signal });
+      return data.smrs;
+    } catch (error) {
+      return rejectWithValue(classifySmrReadError(error));
+    }
   },
 );
 
-export const fetchSmrDetails = createAsyncThunk(
+export const fetchSmrDetails = createAsyncThunk<
+  SmrListItem, { id: number; selectNext?: boolean }, { rejectValue: SmrReadError }
+>(
   'smrs/fetchDetails',
-  async ({ id, selectNext }: { id: number; selectNext?: boolean }, { signal }) => {
-    const { data } = await smrApi.getSmrApiSmrsSmrIdGet(id, { select_next: selectNext }, { signal });
-    return data;
+  async ({ id, selectNext }, { signal, rejectWithValue }) => {
+    try {
+      const { data } = await smrApi.getSmrApiSmrsSmrIdGet(id, { select_next: selectNext }, { signal });
+      return data;
+    } catch (error) {
+      return rejectWithValue(classifySmrReadError(error));
+    }
   },
 );
 

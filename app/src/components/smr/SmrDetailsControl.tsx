@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 type SmrDetailsControlProps = {
   likes: number;
   liked: boolean;
-  onLike: () => void;
+  onLike?: () => void;
   nextTo: string;
   onMore: () => void;
 };
@@ -21,6 +21,7 @@ export default function SmrDetailsControl({
         <button
           className={`btn action-btn like${liked ? ' active' : ''}`}
           onClick={onLike}
+          disabled={!onLike}
           aria-pressed={liked}
           aria-label="Нравится"
         >

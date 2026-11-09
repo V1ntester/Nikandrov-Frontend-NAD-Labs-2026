@@ -1,3 +1,4 @@
+import type { SmrReadError } from '../../api/smrReadError';
 import { createSlice, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit';
 import type { SmrListItem } from '../../api/generated/api';
 import { signedOut } from '../../store/authSlice';
@@ -15,6 +16,7 @@ type RequestState = {
   requestId: string;
   status: 'pending' | 'fulfilled' | 'rejected' | 'idle';
   error: string | null;
+  readError?: SmrReadError;
 };
 
 type SmrsState = {
@@ -69,6 +71,9 @@ const smrsSlice = createSlice({
     .addMatcher(isRejected(...requests), (state, action) => {
       const request = state.requests[operation(action.type)];
       if (request?.requestId !== action.meta.requestId) return;
+      if (fetchSmrs.rejected.match(action) || fetchSmrDetails.rejected.match(action)) {
+        request.readError = action.payload;
+      }
       request.status = action.meta.aborted ? 'idle' : 'rejected';
       request.error = action.meta.aborted ? null : action.error.message ?? 'Ошибка запроса';
     }),

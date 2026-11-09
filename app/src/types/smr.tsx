@@ -4,7 +4,7 @@ export type Smr = {
   name: string;
   image_url?: string | null;
   video_url?: string | null;
-  thermal_power?: number;
-  electrical_power?: number;
-  description?: string;
+  thermal_power?: number | null;
+  electrical_power?: number | null;
+  description?: string | null;
 };
